@@ -62,9 +62,9 @@ log-db:
 	docker compose logs db
 log-db-watch:
 	docker compose logs --follow db
-bash-backend-ngx:
+sh-backend-ngx:
 	docker compose exec backend-ngx ash
-bash-backend:
+sh-backend:
 	docker compose exec backend bash
 migrate:
 	docker compose exec backend php artisan migrate
