@@ -9,10 +9,10 @@ create-project:
 	@make build
 	@make up
 	@make laravel-install
-#	docker compose exec backend php artisan key:generate
+	docker compose exec backend php artisan key:generate
 	docker compose exec backend php artisan storage:link
 	docker compose exec backend chmod -R 777 storage bootstrap/cache
-#	@make fresh
+	@make fresh
 install-recommend-packages:
 	docker compose exec backend composer require doctrine/dbal
 	docker compose exec backend composer require --dev ucan-lab/laravel-dacapo
@@ -26,10 +26,10 @@ init:
 	docker compose up -d --build
 	docker compose exec backend composer install
 	docker compose exec backend cp .env.example .env
-#	docker compose exec backend php artisan key:generate
+	docker compose exec backend php artisan key:generate
 	docker compose exec backend php artisan storage:link
 	docker compose exec backend chmod -R 777 storage bootstrap/cache
-#	@make fresh
+	@make fresh
 remake:
 	@make destroy
 	@make init
@@ -58,25 +58,25 @@ log-backend:
 	docker compose logs backend
 log-backend-watch:
 	docker compose logs --follow backend
-#log-db:
-#	docker compose logs db
-#log-db-watch:
-#	docker compose logs --follow db
-backend-ngx:
+log-db:
+	docker compose logs db
+log-db-watch:
+	docker compose logs --follow db
+sh-backend-ngx:
 	docker compose exec backend-ngx ash
-backend:
+sh-backend:
 	docker compose exec backend bash
-#migrate:
-#	docker compose exec backend php artisan migrate
-#fresh:
-#	docker compose exec backend php artisan migrate:fresh --seed
-#seed:
-#	docker compose exec backend php artisan db:seed
+migrate:
+	docker compose exec backend php artisan migrate
+fresh:
+	docker compose exec backend php artisan migrate:fresh --seed
+seed:
+	docker compose exec backend php artisan db:seed
 dacapo:
 	docker compose exec backend php artisan dacapo
-#rollback-test:
-#	docker compose exec backend php artisan migrate:fresh
-#	docker compose exec backend php artisan migrate:refresh
+rollback-test:
+	docker compose exec backend php artisan migrate:fresh
+	docker compose exec backend php artisan migrate:refresh
 tinker:
 	docker compose exec backend php artisan tinker
 test:
@@ -94,3 +94,7 @@ cache-clear:
 	docker compose exec backend composer clear-cache
 	@make optimize-clear
 	docker compose exec backend php artisan event:clear
+sh-db:
+	docker compose exec db bash
+sql:
+	docker compose exec db bash -c 'mysql -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE'
