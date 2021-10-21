@@ -5,7 +5,6 @@ volumes:
   psysh-store:
 services:
   backend:
-    container_name: chu-api
     build:
       context: .
       dockerfile: ./infra/docker/php/Dockerfile
@@ -32,7 +31,6 @@ services:
       - DB_PASSWORD=${DB_PASS:-secret}
 
   backend-ngx:
-    container_name: chu-api-web
     build:
       context: .
       dockerfile: ./infra/docker/nginx/Dockerfile
@@ -52,7 +50,6 @@ services:
         target: /work/backend
 
   db:
-    container_name: chu-db
     build:
       context: .
       dockerfile: ./infra/docker/mysql/Dockerfile
