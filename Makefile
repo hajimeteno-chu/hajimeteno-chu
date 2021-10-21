@@ -94,3 +94,7 @@ cache-clear:
 	docker compose exec backend composer clear-cache
 	@make optimize-clear
 	docker compose exec backend php artisan event:clear
+sh-db:
+	docker compose exec db bash
+sql:
+	docker compose exec db bash -c 'mysql -u $$MYSQL_USER -p$$MYSQL_PASSWORD $$MYSQL_DATABASE'
