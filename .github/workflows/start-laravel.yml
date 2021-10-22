@@ -1,4 +1,4 @@
-name: laravel-startup
+name: start-laravel
 
 on:
   push:
