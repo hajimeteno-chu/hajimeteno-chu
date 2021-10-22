@@ -39,6 +39,13 @@ jobs:
       - name: Composer Install
         run: docker-compose exec -T backend composer install
 
+      - name: Initilize Laravel
+        run: |
+          docker-compose exec -T backend cp .env.example .env
+          docker compose exec backend php artisan key:generate
+          docker compose exec backend php artisan storage:link
+          docker compose exec backend chmod -R 777 storage bootstrap/cache
+
       - name: Laravel Version
         run: docker-compose exec -T backend php artisan --version
 
