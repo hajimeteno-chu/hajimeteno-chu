@@ -5,24 +5,24 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class WorkspaceTableSeeder extends Seeder
+class PartsTableSeeder extends Seeder
 {
     /**
-     * workspacesテーブルに1件だけ登録
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        DB::table('workspaces')->insert([
+        DB::table('parts')->insert([
             [
-                'name' => 'FirstWorkspace'
+                'name' => 'front'
             ],
             [
-                'name' => 'SecondWorkspace'
+                'name' => 'back'
             ],
             [
-                'name' => 'ThirdWorkspace'
+                'name' => 'infra'
             ],
         ]);
     }
