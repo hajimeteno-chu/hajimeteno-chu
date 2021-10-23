@@ -44,17 +44,35 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $token = $request->bearerToken();
-        if (empty($token)) {
-            abort(401);
-        }
-        $user = User::where("remember_token", $token)->first();
-        if (!empty($user)) {
-            return [
-                "user" => $user,
-            ];
+        $param = $request->q;
+        if (empty($param)) {
+
+            // リクエストしたユーザー情報を返す
+            $token = $request->bearerToken();
+            if (empty($token)) {
+                abort(401);
+            }
+            $user = User::where("remember_token", $token)->first();
+            if (!empty($user)) {
+                return [
+                    "user" => $user,
+                ];
+            } else {
+                abort(401);
+            }
+
         } else {
-            abort(401);
+
+            // ユーザーを検索する
+            $user = User::where("name", $param)->first();
+            if (!empty($user)) {
+                return [
+                    "user" => $user,
+                ];
+            } else {
+                abort(401);
+            }
+
         }
     }
 }
