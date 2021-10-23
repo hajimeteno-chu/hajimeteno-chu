@@ -41,4 +41,22 @@ class UserController extends Controller
             abort(401);
         }
     }
+
+    public function index(Request $request)
+    {
+        foreach (getallheaders() as $name => $value) {
+            if ($name != 'Authorization') {
+                continue;
+            }
+            $token = str_replace('Bearer ', '', $value);
+            $user = User::where("remember_token", $token)->first();
+            if (!empty($user)) {
+                return [
+                    "user" => $user,
+                ];
+            } else {
+                abort(401);
+            }
+        }
+    }
 }
