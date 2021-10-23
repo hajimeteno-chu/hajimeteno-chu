@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\WorkspaceController;
+use App\Http\Controllers\API\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('workspace', [WorkspaceController::class, 'index']);
+
+Route::post("login", [UserController::class, 'login']);
+Route::post("logout", [UserController::class, 'logout']);
