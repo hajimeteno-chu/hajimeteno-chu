@@ -44,11 +44,14 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        foreach (getallheaders() as $name => $value) {
-            if ($name != 'Authorization') {
-                continue;
+        $param = $request->q;
+        if (empty($param)) {
+
+            // リクエストしたユーザー情報を返す
+            $token = $request->bearerToken();
+            if (empty($token)) {
+                abort(401);
             }
-            $token = str_replace('Bearer ', '', $value);
             $user = User::where("remember_token", $token)->first();
             if (!empty($user)) {
                 return [
@@ -57,6 +60,19 @@ class UserController extends Controller
             } else {
                 abort(401);
             }
+
+        } else {
+
+            // ユーザーを検索する
+            $user = User::where("name", $param)->first();
+            if (!empty($user)) {
+                return [
+                    "user" => $user,
+                ];
+            } else {
+                abort(401);
+            }
+
         }
     }
 }
