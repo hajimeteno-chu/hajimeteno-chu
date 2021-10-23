@@ -1,6 +1,6 @@
 <template>
   <div class="h-full">
-    <div v-if="$route.query.loggedIn == 'true'">
+    <div v-if="$auth.loggedIn != 'true'">
       <div class="hero h-screen h-full bg-base-200">
         <div class="flex-col justify-center hero-content lg:flex-row">
           <div class="text-center lg:text-left">

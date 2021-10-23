@@ -5,6 +5,15 @@
   "Tutorial": {
     "description": "Auto imported from components/Tutorial.vue"
   },
+  "CardLogin": {
+    "description": "Auto imported from components/card/Login.vue"
+  },
+  "CardMember": {
+    "description": "Auto imported from components/card/Member.vue"
+  },
+  "CardTodo": {
+    "description": "Auto imported from components/card/Todo.vue"
+  },
   "ModalAddGroup": {
     "description": "Auto imported from components/modal/AddGroup.vue"
   },
@@ -16,15 +25,6 @@
   },
   "ModalMemberSearch": {
     "description": "Auto imported from components/modal/MemberSearch.vue"
-  },
-  "CardLogin": {
-    "description": "Auto imported from components/card/Login.vue"
-  },
-  "CardMember": {
-    "description": "Auto imported from components/card/Member.vue"
-  },
-  "CardTodo": {
-    "description": "Auto imported from components/card/Todo.vue"
   },
   "PageCreateStep1": {
     "description": "Auto imported from components/page/Create/Step1.vue"
