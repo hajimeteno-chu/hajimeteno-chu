@@ -1,6 +1,4 @@
-FROM node:14-buster as node
-FROM php:7.4-apache-buster
-LABEL maintainer="ucan-lab <yes@u-can.pro>"
+FROM php:8.0-apache-bullseye
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
 
 # timezone environment
@@ -14,13 +12,7 @@ ENV TZ=UTC \
   COMPOSER_HOME=/composer
 
 # composer command
-COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
-# node command
-COPY --from=node /usr/local/bin /usr/local/bin
-# npm command
-COPY --from=node /usr/local/lib /usr/local/lib
-# yarn command
-COPY --from=node /opt /opt
+COPY --from=composer:2.1 /usr/bin/composer /usr/bin/composer
 
 RUN apt-get update && \
   apt-get -y install git libicu-dev libonig-dev libzip-dev unzip locales && \
