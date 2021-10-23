@@ -15,7 +15,6 @@ create-project:
 	@make fresh
 install-recommend-packages:
 	docker compose exec backend composer require doctrine/dbal
-	docker compose exec backend composer require --dev ucan-lab/laravel-dacapo
 	docker compose exec backend composer require --dev barryvdh/laravel-ide-helper
 	docker compose exec backend composer require --dev beyondcode/laravel-dump-server
 	docker compose exec backend composer require --dev barryvdh/laravel-debugbar
@@ -50,10 +49,6 @@ logs:
 	docker compose logs
 logs-watch:
 	docker compose logs --follow
-log-backend-ngx:
-	docker compose logs backend-ngx
-log-backend-ngx-watch:
-	docker compose logs --follow backend-ngx
 log-backend:
 	docker compose logs backend
 log-backend-watch:
@@ -62,8 +57,6 @@ log-db:
 	docker compose logs db
 log-db-watch:
 	docker compose logs --follow db
-sh-backend-ngx:
-	docker compose exec backend-ngx ash
 sh-backend:
 	docker compose exec backend bash
 migrate:
@@ -72,8 +65,6 @@ fresh:
 	docker compose exec backend php artisan migrate:fresh --seed
 seed:
 	docker compose exec backend php artisan db:seed
-dacapo:
-	docker compose exec backend php artisan dacapo
 rollback-test:
 	docker compose exec backend php artisan migrate:fresh
 	docker compose exec backend php artisan migrate:refresh
