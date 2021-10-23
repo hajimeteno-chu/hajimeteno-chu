@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use App\Models\Workspace;
 use App\Models\User;
 use App\Models\UserWorkspaces;
-use Illuminate\Support\Facades\DB;
 
 class WorkspaceController extends Controller
 {
@@ -26,31 +25,15 @@ class WorkspaceController extends Controller
             abort(401);
         }
         $user = User::where("remember_token", $token)->first();
+
         if (!empty($user)) {
-            $member_id = DB::table('user_workspaces')->where('user_id', $user->id)->first()->id;
-            return [
-                "user" => $user,
-            ];
+            // ここに主な処理を書く
+            return [];
         } else {
             abort(401);
         }
-        // try {
-        //     $workspace = Workspace::first();
-        //     $result = [
-        //         'result' => true,
-        //         'workspace_id' => $workspace->id,
-        //         'workspace_name' => $workspace->name
-        //     ];
-        // } catch(\Exception $e) {
-        //     $result = [
-        //         'result' => false,
-        //         'error' => [
-        //             'message' => [$e->getMessage()]
-        //         ],
-        //     ];
-        //     return $this->resConversionJson($result, $e->getCode());
-        // }
-        // return $this->resConversionJson($result);
+
+        //TODO ここから下を実装する
     }
 
     private function resConversionJson($result, $statusCode=200)
@@ -69,14 +52,14 @@ class WorkspaceController extends Controller
      */
     public function store(Request $request)
     {
-        // $token = $request->bearerToken();
-        // if (empty($token)) {
-        //     abort(401);
-        // }
-        // $user = User::where("remember_token", $token)->first();
-        // if (empty($user)) {
-        //     abort(401);
-        // }
+        $token = $request->bearerToken();
+        if (empty($token)) {
+            abort(401);
+        }
+        $user = User::where("remember_token", $token)->first();
+        if (empty($user)) {
+            abort(401);
+        }
 
         // Workspaceの作成
         $workspace = new Workspace;
