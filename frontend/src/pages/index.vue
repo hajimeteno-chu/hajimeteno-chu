@@ -1,7 +1,7 @@
 <template>
   <div class="h-full">
     <div v-if="$auth.loggedIn != 'true'">
-      <div class="hero h-screen h-full bg-base-200">
+      <div class="hero fixed h-full bg-base-200">
         <div class="flex-col justify-center hero-content lg:flex-row">
           <div class="text-center lg:text-left">
             <h1 class="mb-5 text-5xl font-bold">チーム開発Tutorial</h1>

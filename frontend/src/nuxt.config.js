@@ -34,8 +34,7 @@ export default {
   ],
 
   axios: {
-    withCredentials: true,
-    baseUrl: 'https://d51d0824be1d77.lhr.domains',
+    baseUrl: 'https://a2a83ab7512195.lhr.domains',
     credentials: true,
   },
 
@@ -51,6 +50,7 @@ export default {
         },
         endpoints: {
           login: { url: '/api/login', method: 'post' },
+          user: { url: '/api/user', method: 'get' },
         },
       },
     },
