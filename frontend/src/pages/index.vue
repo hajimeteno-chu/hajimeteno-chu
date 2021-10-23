@@ -6,7 +6,7 @@
           <div class="text-center lg:text-left">
             <h1 class="mb-5 text-5xl font-bold">チーム開発Tutorial</h1>
             <p class="mb-5">
-              チーム開発が初めてですか？Hajimeteno-Chuのガイドに従って開発をどんどん進んでみてください。
+              チーム開発が初めてですか？Hajimeteno-Chuのガイドに従って開発をどんどん進めてみてください。
             </p>
           </div>
           <cardLogin />
