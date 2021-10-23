@@ -1,4 +1,4 @@
-FROM php:8.0-fpm-bullseye
+FROM php:8.0-apache-bullseye
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
 
 # timezone environment
@@ -19,12 +19,10 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/* && \
   locale-gen en_US.UTF-8 && \
   localedef -f UTF-8 -i en_US en_US.UTF-8 && \
-  mkdir /var/run/php-fpm && \
   docker-php-ext-install intl pdo_mysql zip bcmath && \
   composer config -g process-timeout 3600 && \
   composer config -g repos.packagist composer https://packagist.org
 
-COPY ./infra/docker/php/php-fpm.d/zzz-www.conf /usr/local/etc/php-fpm.d/zzz-www.conf
 COPY ./infra/docker/php/php.ini /usr/local/etc/php/php.ini
 
 WORKDIR /work/backend
