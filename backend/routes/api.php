@@ -16,9 +16,7 @@ use App\Http\Controllers\API\UserController;
 |
 */
 
-Route::get('user', function (Request $request) {
-    return $request->user();
-});
+Route::get('user', [UserController::class, 'index']);
 
 Route::get('workspace', [WorkspaceController::class, 'index']);
 

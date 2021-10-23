@@ -41,4 +41,9 @@ class UserController extends Controller
             abort(401);
         }
     }
+
+    public function index(Request $request)
+    {
+        return getallheaders();
+    }
 }
