@@ -2,7 +2,7 @@
   <div class="h-full">
     <div class="page">
       <div class="navbar">
-        <div class="brand">Hajimeteno-Chu!</div>
+        <nuxt-link to="/" class="brand">Hajimeteno-Chu!</nuxt-link>
         <div>
           <button class="btn btn-link">ログイン</button>
         </div>

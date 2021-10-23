@@ -9,11 +9,13 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
     "@windicss/plugin-icons": "^1.0.2",
     "core-js": "^3.15.1",
     "daisyui": "^1.14.0",
     "nuxt": "^2.15.7",
-    "nuxt-vite": "^0.2.2"
+    "nuxt-vite": "^0.2.2",
+    "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
     "@nuxt/postcss8": "^1.1.3",

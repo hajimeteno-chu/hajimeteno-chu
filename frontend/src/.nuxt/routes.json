@@ -1,10 +1,32 @@
 [
   {
+    "name": "test",
+    "path": "/test",
+    "component": "/Users/leeseungho/Desktop/프로젝트/hajimeteno-chu/hajimeteno-chu/frontend/src/pages/test.vue",
+    "chunkName": "pages/test",
+    "_name": "_297b4a4e"
+  },
+  {
     "name": "workspace-create",
     "path": "/workspace/create",
     "component": "/Users/leeseungho/Desktop/프로젝트/hajimeteno-chu/hajimeteno-chu/frontend/src/pages/workspace/create.vue",
     "chunkName": "pages/workspace/create",
     "_name": "_593bf172"
+  },
+  {
+    "path": "/workspace/:space?",
+    "component": "/Users/leeseungho/Desktop/프로젝트/hajimeteno-chu/hajimeteno-chu/frontend/src/pages/workspace/_space.vue",
+    "chunkName": "pages/workspace/_space",
+    "children": [
+      {
+        "name": "workspace-space",
+        "path": "",
+        "component": "/Users/leeseungho/Desktop/프로젝트/hajimeteno-chu/hajimeteno-chu/frontend/src/pages/workspace/_space/index.vue",
+        "chunkName": "pages/workspace/_space/index",
+        "_name": "_b3348880"
+      }
+    ],
+    "_name": "_760526fd"
   },
   {
     "name": "index",

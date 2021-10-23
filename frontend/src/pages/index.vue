@@ -16,11 +16,14 @@
     <div v-else class="max-w-screen-lg mx-auto mt-10">
       <div class="flex justify-between items-center">
         <h1 class="text-3xl font-bold">My WorkSpaces</h1>
-        <button class="btn">+ Add Workspace</button>
+        <button class="btn" @click="$router.push({ name: 'workspace-create' })">
+          + Add Workspace
+        </button>
       </div>
 
       <div class="mt-10">
-        <div
+        <nuxt-link
+          :to="{ name: 'workspace-space' }"
           class="
             rounded-md
             border border-base-200
@@ -42,33 +45,8 @@
               ></progress>
             </div>
           </div>
-          <div class="flex items-center gap-x-7">
-            <div
-              class="
-                flex
-                items-center
-                gap-x-2
-                text-accent
-                select-none
-                cursor-pointer
-              "
-            >
-              <i class="icon-play-button-r" />Tutorial
-            </div>
-            <div
-              class="
-                flex
-                items-center
-                gap-x-2
-                text-error
-                select-none
-                cursor-pointer
-              "
-            >
-              <i class="icon-board" />Dashboard
-            </div>
-          </div>
-        </div>
+          <div class="flex items-center gap-x-7"></div>
+        </nuxt-link>
       </div>
     </div>
   </div>

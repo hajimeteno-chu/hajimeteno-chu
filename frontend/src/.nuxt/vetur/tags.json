@@ -7,5 +7,41 @@
   },
   "CardLogin": {
     "description": "Auto imported from components/card/Login.vue"
+  },
+  "CardMember": {
+    "description": "Auto imported from components/card/Member.vue"
+  },
+  "CardTodo": {
+    "description": "Auto imported from components/card/Todo.vue"
+  },
+  "ModalAddGroup": {
+    "description": "Auto imported from components/modal/AddGroup.vue"
+  },
+  "ModalAddWork": {
+    "description": "Auto imported from components/modal/AddWork.vue"
+  },
+  "ModalEditWork": {
+    "description": "Auto imported from components/modal/EditWork.vue"
+  },
+  "ModalMemberSearch": {
+    "description": "Auto imported from components/modal/MemberSearch.vue"
+  },
+  "PageCreateStep1": {
+    "description": "Auto imported from components/page/Create/Step1.vue"
+  },
+  "PageCreateStep2": {
+    "description": "Auto imported from components/page/Create/Step2.vue"
+  },
+  "PageCreateStep3": {
+    "description": "Auto imported from components/page/Create/Step3.vue"
+  },
+  "PageCreateStep4": {
+    "description": "Auto imported from components/page/Create/Step4.vue"
+  },
+  "PageCreateStep5": {
+    "description": "Auto imported from components/page/Create/Step5.vue"
+  },
+  "PageCreate": {
+    "description": "Auto imported from components/page/Create/index.vue"
   }
 }
