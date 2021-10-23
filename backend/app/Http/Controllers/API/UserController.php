@@ -44,19 +44,17 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        foreach (getallheaders() as $name => $value) {
-            if ($name != 'Authorization') {
-                continue;
-            }
-            $token = str_replace('Bearer ', '', $value);
-            $user = User::where("remember_token", $token)->first();
-            if (!empty($user)) {
-                return [
-                    "user" => $user,
-                ];
-            } else {
-                abort(401);
-            }
+        $token = $request->bearerToken();
+        if (empty($token)) {
+            abort(401);
+        }
+        $user = User::where("remember_token", $token)->first();
+        if (!empty($user)) {
+            return [
+                "user" => $user,
+            ];
+        } else {
+            abort(401);
         }
     }
 }
