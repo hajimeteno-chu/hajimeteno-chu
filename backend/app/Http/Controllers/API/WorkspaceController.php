@@ -19,21 +19,37 @@ class WorkspaceController extends Controller
      */
     public function index(Request $request)
     {
-        // リクエストしたユーザー情報を返す
         $token = $request->bearerToken();
         if (empty($token)) {
             abort(401);
         }
-        $user = User::where("remember_token", $token)->first();
-
-        if (!empty($user)) {
-            // ここに主な処理を書く
-            return [];
-        } else {
+        $user = User::where('remember_token', $token)->first();
+        if (empty($user)) {
             abort(401);
         }
 
-        //TODO ここから下を実装する
+        // リクエストユーザーがmemberに属しているかチェック
+        $userWorkspaces = UserWorkspaces::where('user_id', $user['id'])->get();
+        if (empty($userWorkspaces)) {
+            abort(401);
+        }
+
+        // ここから下で返却値を生成
+        $result = [];
+        $partWorkspaceIds = [];
+        foreach($userWorkspaces as $userWorkspace) {
+            $partWorkspaceIds[] = $userWorkspace['part_workspace_id'];
+        }
+        $workspaces = Workspace::whereIn('id', $partWorkspaceIds)->get();
+        $todo_controller = app()->make('App\Http\Controllers\API\TodoController');
+        foreach ($workspaces as $workspace) {
+            $result[$workspace['id']]['id'] = $workspace['id'];
+            $result[$workspace['id']]['name'] = $workspace['name'];
+            $result[$workspace['id']]['member_count'] = UserWorkspaces::whereIn('part_workspace_id', $partWorkspaceIds)->count();
+            $todo = $todo_controller->index($workspace['id']);
+            $result[$workspace['id']]['progress'] = $todo['progress'];
+        }
+        return $result;
     }
 
     private function resConversionJson($result, $statusCode=200)
@@ -56,7 +72,7 @@ class WorkspaceController extends Controller
         if (empty($token)) {
             abort(401);
         }
-        $user = User::where("remember_token", $token)->first();
+        $user = User::where('remember_token', $token)->first();
         if (empty($user)) {
             abort(401);
         }
@@ -96,53 +112,5 @@ class WorkspaceController extends Controller
             }
         }
         return ['workspace_id' => $workspace->id];
-    }
-
-    /**
-     * POST:
-    *- {
-    *  name:String
-    *  members:[int,int,int]
-    *  parts:[
-    *    {
-    *      name:String,
-    *      members:[int,int,int]
-    *    }
-    *  ]
-    *}
-     */
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
