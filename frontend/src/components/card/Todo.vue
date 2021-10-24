@@ -12,11 +12,6 @@
       {{ work.status }}
     </div> -->
       <div class="text-lg font-bold truncate">{{ work.title }}</div>
-      <div class="flex items-center text-xs">
-        <div>{{ work.part }}</div>
-        ・
-        <div>{{ work.member }}</div>
-      </div>
     </div>
   </div>
 </template>

@@ -34,11 +34,16 @@ export default {
   ],
 
   axios: {
-    baseUrl: 'https://a2a83ab7512195.lhr.domains',
+    baseUrl: 'https://10a9e614406032.lhr.domains',
     credentials: true,
   },
 
   auth: {
+    redirect: {
+      login: '/',
+      logout: '/',
+      home: '/',
+    },
     strategies: {
       local: {
         token: {

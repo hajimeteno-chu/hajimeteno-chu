@@ -5,15 +5,16 @@
       <div class="w-300px">
         <h2 class="text-lg">メンバー</h2>
         <draggable
-          :list="ex1"
+          :list="groupMembers"
           group="MEMBERS"
           @change="log"
           class="max-h-500px overflow-y-auto min-h-10"
         >
           <CardMember
-            v-for="i in ex1"
+            v-for="i in groupMembers"
             :key="i.id"
             class="bg-base-100 cursor-pointer select-none"
+            :member="i"
           />
         </draggable>
       </div>
@@ -27,16 +28,12 @@
             <div class="border-b-3 border-info">
               <h1 class="font-semibold text-lg">{{ group.name }}</h1>
             </div>
-            <draggable
-              :list="group.members"
-              group="MEMBERS"
-              @change="log"
-              class="min-h-20"
-            >
+            <draggable :list="group.members" group="MEMBERS" class="min-h-20">
               <CardMember
                 v-for="(member, i) in group.members"
                 :key="i"
                 class="bg-base-100 cursor-pointer select-none"
+                :member="member"
               />
             </draggable>
           </div>
@@ -52,6 +49,7 @@
 
 <script>
 export default {
+  props: ['value', 'members'],
   computed: {
     dragOptions() {
       return {
@@ -67,6 +65,7 @@ export default {
   },
   data() {
     return {
+      groupMembers: this.members,
       open: false,
       ex1: [
         { name: 'leesh0', id: 0 },
@@ -76,10 +75,7 @@ export default {
         { name: 'leesh4', id: 4 },
       ],
       ex2: [{ name: 'leesh4', id: 5 }],
-      groups: [
-        { name: 'frontend', members: [] },
-        { name: 'backend', members: [] },
-      ],
+      groups: this.value,
     }
   },
   methods: {

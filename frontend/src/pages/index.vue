@@ -1,12 +1,12 @@
 <template>
   <div class="h-full">
-    <div v-if="$auth.loggedIn != 'true'">
+    <div v-if="!$auth.loggedIn">
       <div class="hero fixed h-full bg-base-200">
         <div class="flex-col justify-center hero-content lg:flex-row">
           <div class="text-center lg:text-left">
             <h1 class="mb-5 text-5xl font-bold">チーム開発Tutorial</h1>
             <p class="mb-5">
-              チーム開発が初めてですか？Hajimeteno-Chuのガイドに従って開発をどんどん進んでみてください。
+              チーム開発が初めてですか？<br />Hajimeteno-Chuのガイドに従って開発をどんどん進めてみてください。
             </p>
           </div>
           <cardLogin />
@@ -23,7 +23,7 @@
 
       <div class="mt-10">
         <nuxt-link
-          :to="{ name: 'workspace-space' }"
+          :to="{ name: 'workspace-space', params: { space: workspace.id } }"
           class="
             rounded-md
             border border-base-200
@@ -32,15 +32,20 @@
             flex
             justify-between
             items-center
+            mt-3
           "
+          v-for="workspace in workspaces"
+          :key="workspace.id"
         >
           <div>
-            <h1 class="text-xl font-semibold">@leesh/Hajimeteno-chu</h1>
+            <h1 class="text-xl font-semibold">{{ workspace.name }}</h1>
             <div class="flex items-center gap-x-3 pt-3">
-              <div class="flex-shrink-0 text-sm">13メンバー</div>
+              <div class="flex-shrink-0 text-sm">
+                {{ workspace.member_count }}メンバー
+              </div>
               <progress
                 class="progress progress-secondary w-40"
-                value="40"
+                :value="workspace.progress"
                 max="100"
               ></progress>
             </div>
@@ -53,5 +58,27 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      workspaces: [],
+    }
+  },
+  mounted() {
+    this.updateWorkspaces()
+    this.$auth.$storage.watchState('loggedIn', this.updateWorkspaces)
+  },
+  methods: {
+    updateWorkspaces() {
+      this.$axios
+        .get('api/workspace')
+        .then((r) => {
+          this.workspaces = Object.values(r.data)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    },
+  },
+}
 </script>

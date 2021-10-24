@@ -3,9 +3,6 @@
     <div class="page">
       <div class="navbar">
         <nuxt-link to="/" class="brand">Hajimeteno-Chu!</nuxt-link>
-        <div>
-          <button class="btn btn-link">ログイン</button>
-        </div>
       </div>
       <div style="height: calc(100%)">
         <nuxt class="h-full" />

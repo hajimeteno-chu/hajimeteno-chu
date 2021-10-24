@@ -2,9 +2,6 @@
   <div class="h-screen overflow-hidden">
     <div class="navbar">
       <nuxt-link to="/" class="brand">Hajimeteno-Chu!</nuxt-link>
-      <div>
-        <button class="btn btn-link">ログイン</button>
-      </div>
     </div>
     <nuxt />
   </div>

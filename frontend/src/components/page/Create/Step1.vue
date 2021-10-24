@@ -4,6 +4,8 @@
     <div class="form-control mt-10">
       <input
         type="text"
+        v-model="pname"
+        @input="$emit('input', pname)"
         placeholder="Project Name"
         class="input input-bordered text-xl"
       />
@@ -14,3 +16,14 @@
     </button>
   </div>
 </template>
+
+<script>
+export default {
+  props: ['value'],
+  data() {
+    return {
+      pname: this.value,
+    }
+  },
+}
+</script>
