@@ -37,15 +37,28 @@ class WorkspaceController extends Controller
         // ここから下で返却値を生成
         $result = [];
         $partWorkspaceIds = [];
+        $workspaceIds = [];
         foreach($userWorkspaces as $userWorkspace) {
             $partWorkspaceIds[] = $userWorkspace['part_workspace_id'];
         }
-        $workspaces = Workspace::whereIn('id', $partWorkspaceIds)->get();
+
+        $partWorkspaces = PartWorkspaces::whereIn('id', $partWorkspaceIds)->get();
+        foreach($partWorkspaces as $partWorkspace) {
+            $workspaceIds[] = $partWorkspace['workspace_id'];
+        }
+
+        $workspaces = Workspace::whereIn('id', $workspaceIds)->get();
         $todo_controller = app()->make('App\Http\Controllers\API\TodoController');
         foreach ($workspaces as $workspace) {
+            $pwIds = [];
             $result[$workspace['id']]['id'] = $workspace['id'];
             $result[$workspace['id']]['name'] = $workspace['name'];
-            $result[$workspace['id']]['member_count'] = UserWorkspaces::whereIn('part_workspace_id', $partWorkspaceIds)->count();
+            $pws = PartWorkspaces::where('workspace_id', $workspace['id'])->get();
+            foreach($pws as $pw) {
+                $pwIds[] = $pw['id'];
+            }
+            $member_count = UserWorkspaces::whereIn('part_workspace_id', $pwIds)->get();
+            $result[$workspace['id']]['member_count'] = $member_count->groupBy('user_id')->count();
             $todo = $todo_controller->index($workspace['id']);
             $result[$workspace['id']]['progress'] = $todo['progress'];
         }
@@ -112,5 +125,53 @@ class WorkspaceController extends Controller
             }
         }
         return ['workspace_id' => $workspace->id];
+    }
+
+    public function show($id, Request $request) {
+        // ユーザーチェック
+        $token = $request->bearerToken();
+        if (empty($token)) {
+            abort(401);
+        }
+        $user = User::where('remember_token', $token)->first();
+        if (empty($user)) {
+            abort(401);
+        }
+        $userWorkspaces = UserWorkspaces::where('user_id', $user['id'])->get();
+        if (empty($userWorkspaces)) {
+            abort(401);
+        }
+        // 返却値を生成
+        $result = [];
+        $workspace = Workspace::find($id);
+        $partWorkspaces = PartWorkspaces::where('workspace_id', $id)->get();
+        $partWorkspaceIds = [];
+        foreach($partWorkspaces as $partWorkspace) {
+            $partWorkspaceIds[] = $partWorkspace['id'];
+        }
+        $userWorkspaces = UserWorkspaces::whereIn('part_workspace_id', $partWorkspaceIds)->get();
+        $members = [];
+        foreach ($userWorkspaces as $userWorkspace) {
+            $partWorkspace = PartWorkspaces::where('id', $userWorkspace['part_workspace_id'])->first();
+            $part = Part::find($partWorkspace['part_id']);
+            $members[$userWorkspace['id']]['name'] = $part['name'];
+            $user = User::find($userWorkspace['user_id']);
+            $members[$userWorkspace['id']]['user'] = $user;
+        }
+        $partWorkspaces = PartWorkspaces::where('workspace_id', $id)->get();
+        foreach($partWorkspaces as $partWorkspace) {
+            $partIds[] = $partWorkspace['part_id'];
+        } 
+        $partIds = array_unique($partIds);
+        $partList = Part::whereIn('id', $partIds)->get();
+        foreach($partList as $part) {
+            $partNameList[] = $part['name'];
+        }
+        $result = [
+            'workspace' => $workspace,
+            'partList' => $partNameList,
+            'member' => $members
+        ];
+        return $result;
     }
 }

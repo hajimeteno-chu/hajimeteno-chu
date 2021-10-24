@@ -20,6 +20,7 @@ use App\Http\Controllers\API\TodoController;
 Route::get('user', [UserController::class, 'index']);
 
 Route::get('workspace', [WorkspaceController::class, 'index']);
+Route::get('workspace/{workspaceId}', [WorkspaceController::class, 'show']);
 Route::post('workspace', [WorkspaceController::class, 'store']);
 
 Route::post("login", [UserController::class, 'login']);
