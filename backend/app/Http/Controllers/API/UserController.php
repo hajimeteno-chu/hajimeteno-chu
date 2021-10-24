@@ -74,4 +74,24 @@ class UserController extends Controller
             }
         }
     }
+
+    public function register(Request $request)
+    {
+        $name = $request->get("name");
+        $password1 = $request->get("password1");
+        $password2 = $request->get("password1");
+        if ($password1 != $password2) {
+            abort(401);
+        }
+        $user = new User;
+        $user->name = $request->get("name");
+        $hashPassword = Hash::make($password1);
+        $user->password = $hashPassword;
+        if (!$user->save()) {
+            abort(500);
+        }
+        return [
+            "user" => $user
+        ];
+    }
 }
