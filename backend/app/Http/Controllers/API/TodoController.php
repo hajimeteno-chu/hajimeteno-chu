@@ -29,7 +29,7 @@ class TodoController extends Controller
         $end = floor($done/$all*100);
 
         return [
-            "end" => $end,
+            "progress" => $end,
             "todoList" => $todoList
         ];
     }
