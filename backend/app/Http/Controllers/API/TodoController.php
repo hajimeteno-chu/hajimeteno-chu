@@ -26,10 +26,14 @@ class TodoController extends Controller
             }
             $all++;
         }
-        $end = floor($done/$all*100);
+        if ($all == 0) {
+            $progress = 0;
+        } else {
+            $progress = floor($done/$all*100);
+        }
 
         return [
-            "progress" => $end,
+            "progress" => $progress,
             "todoList" => $todoList
         ];
     }
