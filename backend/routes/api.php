@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\WorkspaceController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\TodoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,11 +17,17 @@ use App\Http\Controllers\API\UserController;
 |
 */
 
-Route::get('user', function (Request $request) {
-    return $request->user();
-});
+Route::get('user', [UserController::class, 'index']);
 
 Route::get('workspace', [WorkspaceController::class, 'index']);
+Route::get('workspace/{workspaceId}', [WorkspaceController::class, 'show']);
+Route::post('workspace', [WorkspaceController::class, 'store']);
 
+Route::post("register", [UserController::class, 'register']);
 Route::post("login", [UserController::class, 'login']);
 Route::post("logout", [UserController::class, 'logout']);
+
+Route::get("workspace/{workspaceId}/todo", [TodoController::class, 'index']);
+Route::post("workspace/{workspaceId}/todo", [TodoController::class, 'store']);
+Route::post("workspace/{workspaceId}/todo/{todoId}", [TodoController::class, 'update']);
+
